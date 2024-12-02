@@ -19,6 +19,9 @@ public class Main {
 
         System.out.println("실행 결과");
         playRace(tryCount, cars, outputView);
+
+        List<Car> winners = selectWinner(cars);
+        outputView.printWinners(winners);
     }
 
     public List<String> separateCarNames(String carNames){
@@ -53,5 +56,20 @@ public class Main {
         }
     }
 
+    public List<Car> selectWinner(List<Car> cars){
+        List<Car> winners = new ArrayList<>();
+        int winnerPosition = 0;
 
+        for (Car car : cars) {
+            if(car.getPosition() > winnerPosition) {
+                winnerPosition = car.getPosition();
+                winners.clear();
+                winners.add(car);
+            }else if(car.getPosition() == winnerPosition) {
+                winners.add(car);
+            }
+        }
+
+        return winners;
+    }
 }
