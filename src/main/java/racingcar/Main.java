@@ -14,11 +14,11 @@ public class Main {
         String carNames = inputView.receiveCarNames();
         List<String> carNamesList = separateCarNames(carNames);
         List<Car> cars = createCars(carNamesList);
-        inputView.receiveTryCount();
+        int tryCount = Integer.parseInt(inputView.receiveTryCount());
         System.out.println();
 
         System.out.println("실행 결과");
-        outputView.printSingleRace(cars);
+        playRace(tryCount, cars, outputView);
     }
 
     public List<String> separateCarNames(String carNames){
@@ -37,6 +37,20 @@ public class Main {
         }
 
         return cars;
+    }
+
+    public void playRace(int tryCount, List<Car> cars, OutputView outputView){
+        Thrust thrust = new Thrust();
+
+        for(int i = 0; i < tryCount; i++) {
+            for (Car car : cars) {
+                if (thrust.move()) {
+                    car.moveForward();
+                }
+            }
+            outputView.printSingleRace(cars);
+            System.out.println();
+        }
     }
 
 
